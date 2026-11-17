@@ -1,6 +1,6 @@
 # MGL 1 Prüfungstrainer
 
-Trainer für **Medizinische Grundlagen 1** (GuK, FH JOANNEUM, WS 2026/27) – Prüfung 19.01. oder 29.01.2027, 40 Fragen / 40 min.
+Trainer für **Medizinische Grundlagen 1** (GuK, FH JOANNEUM, WS 2026/27) – Prüfung 19.01. oder 29.01.2027 (Wiederholung 12.03.2027), 40 Fragen / 40 min.
 
 **Online:** https://ryumatvv7.github.io/MGL/
 

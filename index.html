@@ -713,7 +713,7 @@ h3{font-family:var(--f-display);font-weight:700;font-size:18px;margin:0;color:va
   <p class="sub">Haupttext auf Deutsch (so wie im Test),. Nur Inhalte aus den Kursunterlagen: Foliensätze Dr. Nina Maas, Begleitskript Steinwender, VO-Wiederholung &amp; Aufgabenblatt Opriessnig, Tafelbild. Widersprüche zwischen Quellen stehen bei „Fallen“.</p>
   <div class="box"><b>Prüfung:</b> schriftlich online (eduexaminer), <b>40 Fragen in 40 Minuten</b>, 1 Punkt pro Frage. Falsche Antworten → <b>Teilpunkt-Abzug bei dieser Frage</b> (bis max. 0, nicht ins Minus).
   <br><b>Notenschlüssel:</b> 1 = 100–90 % · 2 = 89,99–80 · 3 = 79,99–70 · 4 = 69,99–60 · 5 &lt; 60 %.
-  <br><b>Termine:</b> 19.01.2027 oder 29.01.2027 (Anmeldung in Joanneum|online).</div>
+  <br><b>Termine:</b> 19.01.2027 oder 29.01.2027 · Wiederholung 12.03.2027 (Anmeldung in Joanneum|online).</div>
   <h3>Lehrinhalte (8 Termine)</h3>
   <div class="tw"><table>
     <tr><th>Thema</th><th>Kern</th></tr>
@@ -2137,7 +2137,7 @@ function home(){
   const ex=examPool().length;
   app.innerHTML=`
   <header class="head">
-    <div class="status"><span class="dot"></span>Prüfung: 19.01. oder 29.01.2027 · 40 Fragen · 40 min</div>
+    <div class="status"><span class="dot"></span>Prüfung: 19.01. oder 29.01.2027 · WH 12.03.2027 · 40 Fragen · 40 min</div>
     <h1><span class="x">MGL 1</span> Prüfungstrainer</h1>
     ${ECG}
     <p class="sub">Medizinische Grundlagen 1 · ${B.length} Fragen (SC, MC, richtig/falsch), ${IMG.length} Bilder zum Beschriften, ${MATCH.length} Zuordnungen, ${SEQ.length} Abläufe, ${CLOZE.length} Lückentexte, ${OPEN.length} offene Fragen. Bei MC zählt nur die komplett richtige Auswahl.</p>
@@ -2929,7 +2929,7 @@ function setSkin(v){ store.set("mgl_skin",v); applySkin(v); }
 applySkin(curSkin());
 
 /* ---------- Countdown ---------- */
-const EXAMS=[["2027-01-19","Di 19.01.2027"],["2027-01-29","Fr 29.01.2027"]];
+const EXAMS=[["2027-01-19","Di 19.01.2027"],["2027-01-29","Fr 29.01.2027"],["2027-03-12","WH Fr 12.03.2027"]];
 function curExam(){ return store.get("mgl_exam","2027-01-19"); }
 function cdText(){ const [y,m,d]=curExam().split("-").map(Number); const ms=new Date(y,m-1,d,8)-new Date();
   if(ms<=0&&ms>-16*36e5) return "<b>Heute ist Prüfung – viel Erfolg! 🍀</b>";
