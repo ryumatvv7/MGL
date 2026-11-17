@@ -711,7 +711,7 @@ h3{font-family:var(--f-display);font-weight:700;font-size:18px;margin:0;color:va
   <div class="src">Lernzettel Medizinische Grundlagen 1 (MGL 1) · GuK · FH JOANNEUM · WS 2026/27</div>
   <h1 class="pdfonly">MGL 1 – Konspekt</h1>
   <p class="sub">Haupttext auf Deutsch (so wie im Test),. Nur Inhalte aus den Kursunterlagen: Foliensätze Dr. Nina Maas, Begleitskript Steinwender, VO-Wiederholung &amp; Aufgabenblatt Opriessnig, Tafelbild. Widersprüche zwischen Quellen stehen bei „Fallen“.</p>
-  <div class="box"><b>Prüfung:</b> schriftlich online (eduexaminer), <b>40 Fragen in 40 Minuten</b>, 1 Punkt pro Frage. Falsche Antworten → <b>Teilpunkt-Abzug bei dieser Frage</b> (bis max. 0, nicht ins Minus).
+  <div class="box"><b>Prüfung:</b> schriftlich online (Moodle), <b>40 Fragen in 40 Minuten</b>, 1 Punkt pro Frage. Falsche Antworten → <b>Teilpunkt-Abzug bei dieser Frage</b> (zwei Dezimalstellen, bis max. 0 Punkte bei dieser Frage). Nach 40 Minuten wird <b>automatisch abgegeben</b>.
   <br><b>Notenschlüssel:</b> 1 = 100–90 % · 2 = 89,99–80 · 3 = 79,99–70 · 4 = 69,99–60 · 5 &lt; 60 %.
   <br><b>Termine:</b> 19.01.2027 oder 29.01.2027 · Wiederholung 12.03.2027 (Anmeldung in Joanneum|online).</div>
   <h3>Lehrinhalte (8 Termine)</h3>
@@ -1533,7 +1533,7 @@ const SEQ=[
   steps:["Follikelreifung im Ovar","Eisprung (LH)","Fimbrien fangen die Eizelle ein","Transport durch den Eileiter (ggf. Befruchtung)","Uterus"],note:""}
 ];
 const CHECK=[
- {title:"Prüfungsformat MGL 1",src:"Einführung; Begleitskript",items:["Schriftlich online (eduexaminer), 40 Fragen, 40 Minuten","1 Punkt pro Frage","Falsche Antworten → Teilpunkt-Abzug bei dieser Frage (bis 0, nicht negativ)","Positiv ab 60 %: 1 ≥ 90 · 2 ≥ 80 · 3 ≥ 70 · 4 ≥ 60","Bei MC nur ankreuzen, was du sicher weißt – falsche Kreuze kosten"]},
+ {title:"Prüfungsformat MGL 1",src:"Einführung; Begleitskript",items:["Schriftlich online über Moodle, 40 Fragen, 40 Minuten – danach automatische Abgabe","1 Punkt pro Frage","Falsche Antworten → Teilpunkt-Abzug bei dieser Frage (bis 0, nicht negativ)","Positiv ab 60 %: 1 ≥ 90 · 2 ≥ 80 · 3 ≥ 70 · 4 ≥ 60","Bei MC nur ankreuzen, was du sicher weißt – falsche Kreuze kosten"]},
  {title:"Herz – das musst du zeichnen können",src:"Aufgabenblatt Herz-Kreislauf (Opriessnig)",items:["Lage, 4 Herzhöhlen, Septum","4 Klappen + Segel vs. Taschen","Endokard – Myokard – Epikard + Perikard","LCA/LAD vs. RCA, Füllung in der Diastole","Systole/Diastole + Herztöne","Sinusknoten → AV → His → Tawara → Purkinje","EKG: was es zeigt (nicht Pumpleistung)","5 Rhythmusstörungen","HZV = SV × HF (80 × 75 = 6 l)"]},
  {title:"Zahlen-Check",src:"alle Foliensätze",items:["Blut 7 % KG, 4,5–6 l, 45 % Zellen","Ery 120 Tage · Thrombo 8–10 Tage","SpO2 94–98 %","HF Erw. 60–80 · AF 12–15","RR 120/80 · ZVD 8–12 cm H2O","Totraum 150 ml · AZV 500 ml","Primärharn 180 l · Endharn 1,5 l","pH 7,37–7,45","Lunge re 3 Lappen/10 Segm. · li 2/9"]}
 ];
@@ -2122,6 +2122,7 @@ function examSet(){
   const rest=shuffle(pool.filter(q=>!out.includes(q)));out=out.concat(rest.slice(0,Math.max(0,n-out.length)));
   return shuffle(out).slice(0,n);
 }
+function itemPts(it){ if(!it.done||!it.picked.length)return 0; const q=it.q; if(q.k!=="mc")return it.ok?1:0; const A=new Set(q.a); const nc=A.size, nw=q.o.length-nc; let s=0; it.picked.forEach(i=>{ s+=A.has(i)?1/nc:(nw?-1/nw:0); }); return Math.max(0,Math.round(s*100)/100); }
 function grade(pct){ return pct>=90?1:pct>=80?2:pct>=70?3:pct>=60?4:5; }
 const GRADE={1:"Sehr gut",2:"Gut",3:"Befriedigend",4:"Genügend",5:"Nicht genügend"};
 function home(){
@@ -2173,7 +2174,7 @@ function home(){
       ${PRESETS.map(([n,m],k)=>`<button class="chip" data-p="${k}" aria-pressed="${cfg.n===n&&cfg.m===m}">${n} Fragen · ${m} min${m<n?" · schnell":""}</button>`).join("")}
       <button class="chip" id="csc" aria-pressed="${cfg.sc}">nur Single Choice + richtig/falsch</button>
     </div>
-    <p class="stats">Gilt für beide Prüfungsmodi; Zeitlimit nur im Timer-Modus. Note: 1 ab 90 % · 2 ab 80 % · 3 ab 70 % · 4 ab 60 % · 5 unter 60 %.</p>
+    <p class="stats">Gilt für beide Prüfungsmodi; Zeitlimit nur im Timer-Modus. Note mit Teilpunkten (2 Dezimalstellen, pro Frage min. 0): 1 ab 90 % · 2 ab 80 % · 3 ab 70 % · 4 ab 60 % · 5 unter 60 %. Nach Ablauf der Zeit wird automatisch abgegeben.</p>
   </section>
   <section class="panel">
     <div class="qhead"><h2>Abläufe</h2><span class="stats">${seqN}/${SEQ.length} richtig geordnet${seqN===SEQ.length?" ✓":""}</span></div>
@@ -2342,15 +2343,16 @@ function result(){
   const timed=S.timed, used=S.startedAt?Math.min(Date.now(),S.deadline||Date.now())-S.startedAt:0;
   const limit=S.deadline?Math.round((S.deadline-S.startedAt)/60000):0;
   S.timed=false;S.deadline=0;S.confirm=false;tick();
-  const items=S.queue; const n=items.length; const r=items.filter(x=>x.done&&x.ok).length; const pct=n?r/n*100:0;
+  const items=S.queue; const n=items.length; const r=items.filter(x=>x.done&&x.ok).length; const P=Math.round(items.reduce((a,x)=>a+itemPts(x),0)*100)/100; const pct=n?P/n*100:0;
   const g=grade(pct), pass=g<5;
   const wrong=items.filter(x=>!x.ok); const skipped=items.filter(x=>!x.done).length;
   const byT={};items.forEach(x=>{const o=byT[x.q.t]=byT[x.q.t]||{r:0,n:0};o.n++;if(x.ok)o.r++});
   app.innerHTML=`
   <header class="head"><div class="status"><span class="dot"></span>${esc(S.mode)} beendet${S.timeout?" · Zeit abgelaufen":""}</div><h1>Ergebnis</h1>${ECG}</header>
   <section class="panel">
-    <div class="row" style="align-items:flex-end;gap:16px"><span class="score">${r}<span class="of"> / ${n}</span></span>
-    <span class="pill ${pass?"ok":"bad"}">${Math.round(pct)} % · Note ${g} · ${GRADE[g]}</span></div>
+    <div class="row" style="align-items:flex-end;gap:16px"><span class="score">${String(P).replace(".",",")}<span class="of"> / ${n}</span></span>
+    <span class="pill ${pass?"ok":"bad"}">${pct.toFixed(2).replace(".",",")} % · Note ${g} · ${GRADE[g]}</span></div>
+    <div class="stats">Punkte mit Teilpunkten (wie Moodle): <b>${P.toFixed(2).replace(".",",")} / ${n}</b> · komplett richtig: ${r} / ${n}. MC: jedes richtige Kreuz +Anteil, jedes falsche −Anteil, pro Frage min. 0.</div>
     ${timed?`<div class="stats">Benötigte Zeit: ${pad(Math.floor(used/60000))}:${pad(Math.floor(used%60000/1000))} von ${limit}:00</div>`:""}
     ${skipped?`<div class="stats">${skipped} Fragen nicht beantwortet (zählen als falsch)</div>`:""}
     <div class="stats">${Object.entries(byT).map(([t,o])=>`${esc(TOPICS[t])}: ${o.r}/${o.n}`).join(" · ")}</div>
