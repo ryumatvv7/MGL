@@ -7,7 +7,7 @@ Trainer für **Medizinische Grundlagen 1** (GuK, FH JOANNEUM, WS 2026/27) – Pr
 - ~400 Fragen (SC, MC, richtig/falsch), Prüfungsmodus 40/40 mit Note
 - 16 Bilder: beschriften, finden, erkennen
 - Zuordnen (Drag & Drop), Abläufe ordnen, Lückentexte, offene Fragen
-- Karteikarten mit Wiederholung, Konspekt mit Wörterbuch DE–RU
+- Karteikarten mit Wiederholung, Konspekt
 - Design Weiß-Grün / Schwarz-Grün, Fortschritt im Browser gespeichert
 
 Nur Inhalte aus den Kursunterlagen. made by @ryumatvv7
